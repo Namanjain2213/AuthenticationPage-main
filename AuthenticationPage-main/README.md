@@ -3,7 +3,7 @@
 Pixel-perfect implementation of the provided Adobe XD design.
 
 ## Links
-- Live: https://authentication-page-ecru.vercel.app/
+- Live: [https://authentication-page-ecru.vercel.app/](https://authentication-page-main-zeta.vercel.app/)
 - Repo: (this repo)
 
 ## Stack
