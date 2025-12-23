@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 function App() {
   const [page, setPage] = useState(1);
+  const [user, setUser] = useState(null);
   const totalPages = 5;
 
   const goPrev = () => {
@@ -20,6 +21,43 @@ function App() {
   };
   const SignIn = () => {
     setPage(2); 
+  };
+
+  // Handle login form submission
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    
+    if (email && password) {
+      // Simulate successful login
+      setUser({
+        name: "John Doe",
+        email: email
+      });
+      setPage(4); // Go to profile page
+    }
+  };
+
+  // Handle registration form submission
+  const handleRegistration = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const fullName = formData.get('fullName');
+    const email = formData.get('email');
+    const phone = formData.get('phone');
+    const password = formData.get('password');
+    
+    if (fullName && email && phone && password) {
+      // Simulate successful registration
+      setUser({
+        name: fullName,
+        email: email,
+        phone: phone
+      });
+      setPage(4); // Go to profile page
+    }
   };
 
   return (
@@ -63,14 +101,16 @@ function App() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             </p>
 
-            <form className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-violet-700">
                   Email Address
                 </label>
                 <input
                   type="email"
+                  name="email"
                   placeholder="Enter email address"
+                  required
                   className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
                 />
               </div>
@@ -81,7 +121,9 @@ function App() {
                 </label>
                 <input
                   type="password"
+                  name="password"
                   placeholder="Enter password"
+                  required
                   className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
                 />
               </div>
@@ -104,14 +146,16 @@ function App() {
               Create your PopX account
             </h1>
 
-            <form className="space-y-4">
+            <form onSubmit={handleRegistration} className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-violet-700">
                   Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
+                  name="fullName"
                   placeholder="Enter full name"
+                  required
                   className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
                 />
               </div>
@@ -122,7 +166,9 @@ function App() {
                 </label>
                 <input
                   type="text"
+                  name="phone"
                   placeholder="Enter phone number"
+                  required
                   className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
                 />
               </div>
@@ -133,7 +179,9 @@ function App() {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   placeholder="Enter email"
+                  required
                   className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
                 />
               </div>
@@ -144,7 +192,9 @@ function App() {
                 </label>
                 <input
                   type="password"
+                  name="password"
                   placeholder="Enter password"
+                  required
                   className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
                 />
               </div>
@@ -155,6 +205,7 @@ function App() {
                 </label>
                 <input
                   type="text"
+                  name="company"
                   placeholder="Enter company name"
                   className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600"
                 />
@@ -200,12 +251,14 @@ function App() {
                 className="w-16 h-16 rounded-full"
               />
               <div>
-                <p className="font-bold text-gray-800">Marry Doe</p>
-                <p className="text-gray-600 text-sm">Marry@gmail.com</p>
+                <p className="font-bold text-gray-800">{user?.name || "User Name"}</p>
+                <p className="text-gray-600 text-sm">{user?.email || "user@email.com"}</p>
+                {user?.phone && <p className="text-gray-600 text-sm">{user.phone}</p>}
               </div>
             </div>
 
             <p className="text-gray-600 text-sm leading-relaxed">
+              Welcome to your PopX account! You have successfully {user?.phone ? 'registered' : 'logged in'}. 
               Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
               Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam
               Erat, Sed Diam
